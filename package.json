@@ -1,0 +1,62 @@
+{
+  "name": "@infotorg/http-response-error",
+  "version": "1.0.0",
+  "description": "Different HTTP Response Error classes",
+  "type": "module",
+  "main": "dist/http-response-error.cjs.js",
+  "module": "dist/http-response-error.esm.js",
+  "unpkg": "dist/http-response-error.umd.js",
+  "jsdelivr": "dist/http-response-error.umd.js",
+  "exports": {
+    ".": {
+      "require": "./dist/http-response-error.cjs.js",
+      "import": "./dist/http-response-error.esm.js",
+      "umd": "./dist/http-response-error.umd.js"
+    }
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "lint": "eslint --ext .js src/ tests/",
+    "format": "prettier --write --list-different .",
+    "lintfix": "npm run format && npm run lint -- --fix",
+    "prepublish": "npm run build",
+    "prebuild": "npm run test",
+    "pretest": "npm run lintfix",
+    "test": "jest"
+  },
+  "keywords": [
+    "http response error",
+    "http error",
+    "exception"
+  ],
+  "author": "Volodymyr Chumak <coder.ua@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/infotorg/http-response-error/issues"
+  },
+  "homepage": "https://github.com/infotorg/http-response-error#readme",
+  "directories": {
+    "test": "tests"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.20.7",
+    "@babel/core": "^7.20.12",
+    "@babel/eslint-parser": "^7.19.1",
+    "@babel/plugin-transform-runtime": "^7.21.0",
+    "@babel/preset-env": "^7.20.2",
+    "@rollup/plugin-babel": "^6.0.3",
+    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-terser": "^0.4.0",
+    "babel-jest": "^29.3.1",
+    "eslint": "^8.32.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-jest": "^27.2.1",
+    "jest": "^29.3.1",
+    "prettier": "^2.8.3",
+    "rollup": "^3.19.1"
+  }
+}
