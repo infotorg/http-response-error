@@ -13,18 +13,13 @@ import ResponseErrorOptions from './response-error-options';
  * @class NotFoundError
  * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404
  */
-class NotFoundError extends ResponseError {
+export default class NotFoundError extends ResponseError {
+  /**
+   * NotFoundError constructor
+   *
+   * @param {Object|String|ResponseErrorOptions|undefined} [data=undefined] Error message or options
+   */
   constructor(data) {
-    super(
-      new ResponseErrorOptions(
-        {
-          code: 404,
-          ...(data && typeof data === 'object' ? data : { message: data }),
-        },
-        'Not Found'
-      )
-    );
+    super(ResponseErrorOptions.create(data, 404, 'Not Found'));
   }
 }
-
-export default NotFoundError;

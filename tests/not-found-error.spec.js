@@ -1,5 +1,6 @@
 import requestId from './utils/request-id';
 import NotFoundError from '../src/not-found-error.js';
+import ResponseErrorOptions from '../src/response-error-options.js';
 
 describe('Tests NotFoundError response error class', () => {
   describe('Instantiation with the default params', () => {
@@ -36,34 +37,42 @@ describe('Tests NotFoundError response error class', () => {
     });
   });
 
-  describe('Instantiation with a config object param', () => {
-    test('it can create an instance', () => {
-      expect(
-        new NotFoundError({
-          code: 404,
-          message: 'Oooops, nothing found',
-          requestId: requestId(),
-          details: '',
-        })
-      ).toBeInstanceOf(NotFoundError);
-    });
-
+  describe('Instantiation with a plain object as a config', () => {
     test('it should return expected POJO/JSON information', () => {
-      expect(
-        new NotFoundError({
-          code: 404,
-          message: 'Oooops, nothing found',
-          requestId: requestId(),
-          details: 'Check your search query in a request',
-        }).toPojo()
-      ).toStrictEqual({
-        error: {
-          code: 404,
-          message: 'Oooops, nothing found',
-          requestId: requestId(),
-          details: 'Check your search query in a request',
-        },
-      });
+      const config = {
+        code: 404,
+        message: 'Oooops, nothing found',
+        requestId: requestId(),
+        details: 'Check your search query in a request',
+      };
+      const expected = {
+        error: config,
+      };
+      const error = new NotFoundError(config);
+
+      expect(error).toBeInstanceOf(NotFoundError);
+      expect(error.toPojo()).toStrictEqual(expected);
+      expect(error.toJSON()).toStrictEqual(expected);
+    });
+  });
+
+  describe('Instantiation with the ResponseErrorOptions instance', () => {
+    test('it should return expected POJO/JSON information', () => {
+      const config = {
+        code: 404,
+        message: 'Oooops, nothing found',
+        requestId: requestId(),
+        details: '',
+      };
+      const expected = {
+        error: config,
+      };
+
+      const error = new NotFoundError(new ResponseErrorOptions(config));
+
+      expect(error).toBeInstanceOf(NotFoundError);
+      expect(error.toPojo()).toStrictEqual(expected);
+      expect(error.toJSON()).toStrictEqual(expected);
     });
   });
 });

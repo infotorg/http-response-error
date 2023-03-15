@@ -12,14 +12,6 @@ import ResponseErrorOptions from './response-error-options';
  */
 export default class TooManyRequestsError extends ResponseError {
   constructor(data) {
-    super(
-      new ResponseErrorOptions(
-        {
-          code: 429,
-          ...(data && typeof data === 'object' ? data : { message: data }),
-        },
-        'Too Many Requests'
-      )
-    );
+    super(ResponseErrorOptions.create(data, 429, 'Too Many Requests'));
   }
 }

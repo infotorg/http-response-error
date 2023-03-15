@@ -51,7 +51,7 @@ describe('Tests UnprocessableEntityError response error class', () => {
     });
   });
 
-  describe('Instantiation with a config object param', () => {
+  describe('Instantiation with a plain object as a config', () => {
     const config = Object.freeze({
       code: 422,
       message: 'Invalid Request :-(',

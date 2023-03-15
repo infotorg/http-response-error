@@ -11,6 +11,8 @@ import {
   UnavailableForLegalReasonsError,
   UnprocessableEntityError,
 } from '../src/main.js';
+import requestId from './utils/request-id.js';
+import ResponseErrorOptions from '../src/response-error-options.js';
 
 describe('Tests ResponseErrorFactory class', () => {
   test('it can not be instantiated', () => {
@@ -39,4 +41,23 @@ describe('Tests ResponseErrorFactory class', () => {
       expect(error.code).toBe(expectedCode);
     }
   );
+
+  test('it should return expected ResponseError instance for the ResponseErrorOptions', () => {
+    const config = {
+      code: 400,
+      message: 'Baaaaaad Request :-(',
+      requestId: requestId(),
+      details: '',
+    };
+    const expected = {
+      error: config,
+    };
+
+    const options = new ResponseErrorOptions(config);
+    const error = ResponseErrorFactory.create(options);
+
+    expect(error).toBeInstanceOf(BadRequestError);
+    expect(error.toPojo()).toStrictEqual(expected);
+    expect(error.toJSON()).toStrictEqual(expected);
+  });
 });

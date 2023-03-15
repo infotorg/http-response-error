@@ -1,5 +1,6 @@
 import requestId from './utils/request-id';
 import InternalServerError from '../src/internal-server-error.js';
+import ResponseErrorOptions from '../src/response-error-options.js';
 
 describe('Tests InternalServerError response error class', () => {
   describe('Instantiation with the default params', () => {
@@ -38,11 +39,11 @@ describe('Tests InternalServerError response error class', () => {
     });
   });
 
-  describe('Instantiation with a config object param', () => {
+  describe('Instantiation with a plain object as a config', () => {
     test('it should return expected POJO/JSON information', () => {
       const config = {
         code: 500,
-        message: 'Oh my internal server error!',
+        message: 'Oh my, Internal Server Error!',
         requestId: requestId(),
         details: '',
       };
@@ -51,6 +52,26 @@ describe('Tests InternalServerError response error class', () => {
       const expected = {
         error: config,
       };
+
+      expect(error).toBeInstanceOf(InternalServerError);
+      expect(error.toPojo()).toStrictEqual(expected);
+      expect(error.toJSON()).toStrictEqual(expected);
+    });
+  });
+
+  describe('Instantiation with the ResponseErrorOptions instance', () => {
+    test('it should return expected POJO/JSON information', () => {
+      const config = {
+        code: 500,
+        message: 'Oh my, Internal Server Error!',
+        requestId: requestId(),
+        details: '',
+      };
+      const expected = {
+        error: config,
+      };
+
+      const error = new InternalServerError(new ResponseErrorOptions(config));
 
       expect(error).toBeInstanceOf(InternalServerError);
       expect(error.toPojo()).toStrictEqual(expected);

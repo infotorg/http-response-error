@@ -1,5 +1,6 @@
 import requestId from './utils/request-id';
 import TooManyRequestsError from '../src/too-many-requests-error.js';
+import ResponseErrorOptions from '../src/response-error-options.js';
 
 describe('Tests TooManyRequestsError response error class', () => {
   describe('Instantiation without params', () => {
@@ -38,7 +39,7 @@ describe('Tests TooManyRequestsError response error class', () => {
     });
   });
 
-  describe('Instantiation with a config object param', () => {
+  describe('Instantiation with a plain object as a config', () => {
     test('it should return expected POJO/JSON information', () => {
       const config = {
         code: 429,
@@ -51,6 +52,26 @@ describe('Tests TooManyRequestsError response error class', () => {
       const expected = {
         error: config,
       };
+
+      expect(error).toBeInstanceOf(TooManyRequestsError);
+      expect(error.toPojo()).toStrictEqual(expected);
+      expect(error.toJSON()).toStrictEqual(expected);
+    });
+  });
+
+  describe('Instantiation with the ResponseErrorOptions instance', () => {
+    test('it should return expected POJO/JSON information', () => {
+      const config = {
+        code: 429,
+        message: 'Rate limit exceeded',
+        requestId: requestId(),
+        details: 'Please, contact our support https://support.example.com',
+      };
+      const expected = {
+        error: config,
+      };
+
+      const error = new TooManyRequestsError(new ResponseErrorOptions(config));
 
       expect(error).toBeInstanceOf(TooManyRequestsError);
       expect(error.toPojo()).toStrictEqual(expected);

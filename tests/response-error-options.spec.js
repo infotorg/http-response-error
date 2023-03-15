@@ -18,14 +18,14 @@ describe('Tests ResponseErrorOptions response error class', () => {
   });
 
   describe('Instantiation with custom params', () => {
-    test('it can create an instance with passed message fallback', () => {
-      const instance = new ResponseErrorOptions({}, 'Something went wrong');
+    test('it can create an instance with passed code and message fallbacks', () => {
+      const instance = new ResponseErrorOptions({}, 400, 'Oooops! Invalid request');
 
       expect(instance).toBeInstanceOf(ResponseErrorOptions);
       expect(instance.options).toStrictEqual({
-        code: 500,
+        code: 400,
         details: '',
-        message: 'Something went wrong',
+        message: 'Oooops! Invalid request',
         requestId: '',
       });
     });
@@ -50,6 +50,26 @@ describe('Tests ResponseErrorOptions response error class', () => {
       }
     );
 
+    test.each([null, undefined, false, true, '', 0])(
+      'it can create an instance with built-in code fallback',
+      (code) => {
+        const instance = new ResponseErrorOptions({
+          code,
+          details: 'Error details',
+          requestId: '123456-test-request-id',
+          message: 'Something went wrong',
+        });
+
+        expect(instance).toBeInstanceOf(ResponseErrorOptions);
+        expect(instance.options).toStrictEqual({
+          code: 500,
+          message: 'Something went wrong',
+          details: 'Error details',
+          requestId: '123456-test-request-id',
+        });
+      }
+    );
+
     test('it can create an instance with a config message param', () => {
       const instance = new ResponseErrorOptions(
         {
@@ -68,6 +88,30 @@ describe('Tests ResponseErrorOptions response error class', () => {
         details: 'Error details',
         requestId: '123456-test-request-id',
       });
+    });
+
+    test('it should reset options to default ones', () => {
+      const instance = new ResponseErrorOptions(
+        {
+          code: -1,
+          details: 'Error details',
+          requestId: '123456-test-request-id',
+          message: 'Something went wrong',
+        },
+        'Message fallback'
+      );
+
+      expect(instance).toBeInstanceOf(ResponseErrorOptions);
+      expect(instance.options).toStrictEqual({
+        code: -1,
+        message: 'Something went wrong',
+        details: 'Error details',
+        requestId: '123456-test-request-id',
+      });
+
+      instance.reset();
+
+      expect(instance.options).toStrictEqual(ResponseErrorOptions.defaultOptions());
     });
   });
 });

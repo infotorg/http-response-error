@@ -16,14 +16,6 @@ import ResponseErrorOptions from './response-error-options';
  */
 export default class UnauthorizedError extends ResponseError {
   constructor(data) {
-    super(
-      new ResponseErrorOptions(
-        {
-          code: 401,
-          ...(data && typeof data === 'object' ? data : { message: data }),
-        },
-        'Unauthorized'
-      )
-    );
+    super(ResponseErrorOptions.create(data, 401, 'Unauthorized'));
   }
 }

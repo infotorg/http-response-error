@@ -13,14 +13,6 @@ import ResponseErrorOptions from './response-error-options';
  */
 export default class UnprocessableEntityError extends ResponseError {
   constructor(data) {
-    super(
-      new ResponseErrorOptions(
-        {
-          code: 422,
-          ...(data && typeof data === 'object' ? data : { message: data }),
-        },
-        'Unprocessable Entity'
-      )
-    );
+    super(ResponseErrorOptions.create(data, 422, 'Unprocessable Entity'));
   }
 }

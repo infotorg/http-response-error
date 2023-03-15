@@ -1,6 +1,6 @@
 {
   "name": "@infotorg/http-response-error",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Different HTTP Response Error classes",
   "type": "module",
   "main": "dist/http-response-error.cjs.js",

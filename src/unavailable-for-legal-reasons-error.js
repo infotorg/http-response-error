@@ -11,14 +11,6 @@ import ResponseErrorOptions from './response-error-options';
  */
 export default class UnavailableForLegalReasonsError extends ResponseError {
   constructor(data) {
-    super(
-      new ResponseErrorOptions(
-        {
-          code: 451,
-          ...(data && typeof data === 'object' ? data : { message: data }),
-        },
-        'Unavailable For Legal Reasons'
-      )
-    );
+    super(ResponseErrorOptions.create(data, 451, 'Unavailable For Legal Reasons'));
   }
 }

@@ -1,5 +1,12 @@
 import ResponseErrorOptions from './response-error-options';
 
+/**
+ * ResponseError class
+ *
+ * Base class for all response errors
+ *
+ * @class
+ */
 export default class ResponseError extends Error {
   /**
    * @type {String} message
@@ -20,20 +27,13 @@ export default class ResponseError extends Error {
       details: '',
     }
   ) {
-    if (data instanceof ResponseErrorOptions || (typeof data === 'object' && Object.keys(data).length)) {
-      const fallbackMessage = 'Response error';
+    const { options } = ResponseErrorOptions.create(data, 500, 'Response error');
 
-      super(data.message || fallbackMessage);
+    super(options.message);
 
-      const params = (data instanceof ResponseErrorOptions ? data : new ResponseErrorOptions(data, fallbackMessage))
-        .options;
-
-      Object.keys(params).forEach((property) => {
-        this[property] = params[property];
-      });
-    } else {
-      super(data);
-    }
+    Object.keys(options).forEach((property) => {
+      this[property] = options[property];
+    });
 
     this.name = this.constructor.name;
   }
@@ -54,16 +54,21 @@ export default class ResponseError extends Error {
     };
   }
 
-  toString() {
-    return JSON.stringify(this.toPojo());
-  }
-
   /**
-   * JSON representation of the error
+   * Plain object representation of the error
    *
    * @return {{error: {code: (number|string), requestId: string, details: (string|*), message: string}}}
    */
   toJSON() {
     return this.toPojo();
+  }
+
+  /**
+   * String representation of the error
+   *
+   * @return {string}
+   */
+  toString() {
+    return JSON.stringify(this.toPojo());
   }
 }

@@ -1,5 +1,6 @@
 import requestId from './utils/request-id';
 import ResponseError from '../src/response-error';
+import ResponseErrorOptions from '../src/response-error-options.js';
 
 describe('Tests ResponseError response error class', () => {
   describe('Instantiation without params', () => {
@@ -27,7 +28,7 @@ describe('Tests ResponseError response error class', () => {
         error: {
           message: 'Something went wrong',
           requestId: '',
-          code: '',
+          code: 500,
           details: '',
         },
       };
@@ -38,7 +39,7 @@ describe('Tests ResponseError response error class', () => {
     });
   });
 
-  describe('Instantiation with a config object param', () => {
+  describe('Instantiation with a plain object as a config', () => {
     const config = {
       code: 403,
       message: 'Forbidden',
@@ -68,6 +69,26 @@ describe('Tests ResponseError response error class', () => {
       });
 
       expect(error.toString()).toStrictEqual(expected);
+    });
+  });
+
+  describe('Instantiation with ResponseErrorOptions', () => {
+    test('it should return expected POJO/JSON information', () => {
+      const config = {
+        code: 404,
+        message: 'Oooops, nothing found',
+        requestId: requestId(),
+        details: '',
+      };
+      const expected = {
+        error: config,
+      };
+
+      const error = new ResponseError(new ResponseErrorOptions(config));
+
+      expect(error).toBeInstanceOf(ResponseError);
+      expect(error.toPojo()).toStrictEqual(expected);
+      expect(error.toJSON()).toStrictEqual(expected);
     });
   });
 });

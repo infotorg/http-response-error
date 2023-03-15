@@ -13,15 +13,12 @@ import ResponseErrorOptions from './response-error-options';
  * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403
  */
 export default class ForbiddenError extends ResponseError {
+  /**
+   * ForbiddenError constructor
+   *
+   * @param {Object|String|ResponseErrorOptions|undefined} [data=undefined] Error message or options
+   */
   constructor(data) {
-    super(
-      new ResponseErrorOptions(
-        {
-          code: 403,
-          ...(data && typeof data === 'object' ? data : { message: data }),
-        },
-        'Forbidden'
-      )
-    );
+    super(ResponseErrorOptions.create(data, 403, 'Forbidden'));
   }
 }

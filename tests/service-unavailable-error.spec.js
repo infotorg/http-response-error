@@ -1,5 +1,6 @@
 import requestId from './utils/request-id';
 import ServiceUnavailableError from '../src/service-unavailable-error.js';
+import ResponseErrorOptions from '../src/response-error-options.js';
 
 describe('Tests ServiceUnavailableError response error class', () => {
   describe('Instantiation with the default params', () => {
@@ -36,34 +37,41 @@ describe('Tests ServiceUnavailableError response error class', () => {
     });
   });
 
-  describe('Instantiation with a config object param', () => {
-    test('it can create an instance', () => {
-      expect(
-        new ServiceUnavailableError({
-          code: 503,
-          message: 'Oh my internal server error!',
-          requestId: requestId(),
-          details: '',
-        })
-      ).toBeInstanceOf(ServiceUnavailableError);
-    });
-
+  describe('Instantiation with a plain object as a config', () => {
     test('it should return expected POJO/JSON information', () => {
-      expect(
-        new ServiceUnavailableError({
-          code: 503,
-          message: 'Oh my service unavailable!',
-          requestId: requestId(),
-          details: 'Try again later',
-        }).toPojo()
-      ).toStrictEqual({
-        error: {
-          code: 503,
-          message: 'Oh my service unavailable!',
-          requestId: requestId(),
-          details: 'Try again later',
-        },
-      });
+      const config = {
+        code: 503,
+        message: 'Oh my, the Service is unavailable!',
+        requestId: requestId(),
+        details: '',
+      };
+      const expected = {
+        error: config,
+      };
+      const error = new ServiceUnavailableError(config);
+
+      expect(error).toBeInstanceOf(ServiceUnavailableError);
+      expect(error.toPojo()).toStrictEqual(expected);
+      expect(error.toJSON()).toStrictEqual(expected);
+    });
+  });
+
+  describe('Instantiation with the ResponseErrorOptions instance', () => {
+    test('it should return expected POJO/JSON information', () => {
+      const config = {
+        code: 503,
+        message: 'Oh my, the Service is unavailable!',
+        requestId: requestId(),
+        details: '',
+      };
+      const expected = {
+        error: config,
+      };
+      const error = new ServiceUnavailableError(new ResponseErrorOptions(config));
+
+      expect(error).toBeInstanceOf(ServiceUnavailableError);
+      expect(error.toPojo()).toStrictEqual(expected);
+      expect(error.toJSON()).toStrictEqual(expected);
     });
   });
 });

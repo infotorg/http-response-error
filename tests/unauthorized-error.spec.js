@@ -1,69 +1,80 @@
 import requestId from './utils/request-id';
 import UnauthorizedError from '../src/unauthorized-error.js';
+import ResponseErrorOptions from '../src/response-error-options.js';
 
 describe('Tests UnauthorizedError response error class', () => {
   describe('Instantiation with the default params', () => {
-    test('it can create the instance', () => {
-      expect(new UnauthorizedError()).toBeInstanceOf(UnauthorizedError);
-    });
-
     test('it should return expected POJO/JSON information', () => {
-      expect(new UnauthorizedError().toPojo()).toStrictEqual({
+      const expected = {
         error: {
           message: 'Unauthorized',
           requestId: '',
           code: 401,
           details: '',
         },
-      });
+      };
+      const error = new UnauthorizedError();
+
+      expect(error).toBeInstanceOf(UnauthorizedError);
+      expect(error.toPojo()).toStrictEqual(expected);
+      expect(error.toJSON()).toStrictEqual(expected);
     });
   });
 
   describe('Instantiation with a message only', () => {
-    test('it can create the instance with a message', () => {
-      expect(new UnauthorizedError('Unauthorized')).toBeInstanceOf(UnauthorizedError);
-    });
-
     test('it should return expected POJO/JSON information', () => {
-      expect(new UnauthorizedError('Unauthorized').toPojo()).toStrictEqual({
+      const expected = {
         error: {
-          message: 'Unauthorized',
+          message: 'Unauthorized user',
           requestId: '',
           code: 401,
           details: '',
         },
-      });
+      };
+      const error = new UnauthorizedError('Unauthorized user');
+
+      expect(error).toBeInstanceOf(UnauthorizedError);
+      expect(error.toPojo()).toStrictEqual(expected);
+      expect(error.toJSON()).toStrictEqual(expected);
     });
   });
 
-  describe('Instantiation with a config object param', () => {
-    test('it can create an instance', () => {
-      expect(
-        new UnauthorizedError({
-          code: 401,
-          message: 'You need to login',
-          requestId: requestId(),
-          details: '',
-        })
-      ).toBeInstanceOf(UnauthorizedError);
-    });
-
+  describe('Instantiation with a plain object as a config', () => {
     test('it should return expected POJO/JSON information', () => {
-      expect(
-        new UnauthorizedError({
-          code: 401,
-          message: 'You need to login',
-          requestId: requestId(),
-          details: 'The resource is accessible only for authorized users',
-        }).toPojo()
-      ).toStrictEqual({
-        error: {
-          code: 401,
-          message: 'You need to login',
-          requestId: requestId(),
-          details: 'The resource is accessible only for authorized users',
-        },
-      });
+      const config = {
+        code: 401,
+        message: 'You need to login',
+        requestId: requestId(),
+        details: 'The resource is accessible only for authorized users',
+      };
+      const expected = {
+        error: config,
+      };
+      const error = new UnauthorizedError(config);
+
+      expect(error).toBeInstanceOf(UnauthorizedError);
+      expect(error.toPojo()).toStrictEqual(expected);
+      expect(error.toJSON()).toStrictEqual(expected);
+    });
+  });
+
+  describe('Instantiation with the ResponseErrorOptions instance', () => {
+    test('it should return expected POJO/JSON information', () => {
+      const config = {
+        code: 401,
+        message: 'You need to login',
+        requestId: requestId(),
+        details: 'The resource is accessible only for authorized users',
+      };
+      const expected = {
+        error: config,
+      };
+
+      const error = new UnauthorizedError(new ResponseErrorOptions(config));
+
+      expect(error).toBeInstanceOf(UnauthorizedError);
+      expect(error.toPojo()).toStrictEqual(expected);
+      expect(error.toJSON()).toStrictEqual(expected);
     });
   });
 });

@@ -13,15 +13,12 @@ import ResponseErrorOptions from './response-error-options';
  * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/503
  */
 export default class ServiceUnavailableError extends ResponseError {
+  /**
+   * ServiceUnavailableError constructor
+   *
+   * @param {Object|String|ResponseErrorOptions|undefined} [data=undefined] Error message or options
+   */
   constructor(data) {
-    super(
-      new ResponseErrorOptions(
-        {
-          code: 503,
-          ...(data && typeof data === 'object' ? data : { message: data }),
-        },
-        'Service Unavailable'
-      )
-    );
+    super(ResponseErrorOptions.create(data, 503, 'Service Unavailable'));
   }
 }

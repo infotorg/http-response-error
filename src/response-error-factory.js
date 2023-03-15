@@ -10,7 +10,13 @@ import {
   UnavailableForLegalReasonsError,
   UnprocessableEntityError,
 } from './main.js';
+import ResponseErrorOptions from './response-error-options.js';
 
+/**
+ * Factory class to create ResponseError instances.
+ *
+ * @class ResponseErrorFactory
+ */
 export default class ResponseErrorFactory {
   constructor() {
     if (this.constructor === ResponseErrorFactory) {
@@ -18,6 +24,14 @@ export default class ResponseErrorFactory {
     }
   }
 
+  /**
+   * Creates a ResponseError instance.
+   *
+   * @static
+   * @param {Object|ResponseErrorOptions} config
+   * @return {ResponseError|ServiceUnavailableError|UnauthorizedError|TooManyRequestsError|BadRequestError|ForbiddenError|UnprocessableEntityError|NotFoundError|UnavailableForLegalReasonsError|InternalServerError}
+   * @throws {TypeError}
+   */
   static create(config = {}) {
     if (typeof config !== 'object') {
       throw new TypeError(
@@ -25,33 +39,29 @@ export default class ResponseErrorFactory {
       );
     }
 
-    // Normalize status code
-    const parsedCode = parseInt(config.code, 10);
-    const code = isNaN(parsedCode) ? 500 : parsedCode;
+    const options = ResponseErrorOptions.create(config, 500, 'Internal Server Error');
 
-    const configWithCode = { ...config, code };
-
-    switch (code) {
+    switch (options.code) {
       case 400:
-        return new BadRequestError(configWithCode);
+        return new BadRequestError(options);
       case 401:
-        return new UnauthorizedError(configWithCode);
+        return new UnauthorizedError(options);
       case 403:
-        return new ForbiddenError(configWithCode);
+        return new ForbiddenError(options);
       case 404:
-        return new NotFoundError(configWithCode);
+        return new NotFoundError(options);
       case 422:
-        return new UnprocessableEntityError(configWithCode);
+        return new UnprocessableEntityError(options);
       case 429:
-        return new TooManyRequestsError(configWithCode);
+        return new TooManyRequestsError(options);
       case 451:
-        return new UnavailableForLegalReasonsError(configWithCode);
+        return new UnavailableForLegalReasonsError(options);
       case 500:
-        return new InternalServerError(configWithCode);
+        return new InternalServerError(options);
       case 503:
-        return new ServiceUnavailableError(configWithCode);
+        return new ServiceUnavailableError(options);
       default:
-        return new ResponseError(configWithCode);
+        return new ResponseError(options);
     }
   }
 }

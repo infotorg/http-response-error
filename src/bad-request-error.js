@@ -12,15 +12,12 @@ import ResponseErrorOptions from './response-error-options';
  * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
  */
 export default class BadRequestError extends ResponseError {
+  /**
+   * BadRequestError constructor
+   *
+   * @param {Object|String|ResponseErrorOptions|undefined} [data=undefined] Error message or options
+   */
   constructor(data) {
-    super(
-      new ResponseErrorOptions(
-        {
-          code: 400,
-          ...(data && typeof data === 'object' ? data : { message: data }),
-        },
-        'Bad Request'
-      )
-    );
+    super(ResponseErrorOptions.create(data, 400, 'Bad Request'));
   }
 }
