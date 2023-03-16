@@ -6,15 +6,12 @@ import ResponseErrorOptions from './response-error-options';
  * Base class for all response errors
  *
  * @class
+ * @property {String} message Error message
+ * @property {String|Number} code Error code
+ * @property {String} requestId Request ID
+ * @property {String|*} details Error details
  */
 export default class ResponseError extends Error {
-  /**
-   * @type {String} message
-   * @type {String} requestId
-   * @type {String|Number|*} code
-   * @type {String|*} details
-   */
-
   /**
    * ResponseError constructor
    * @param {Object|String|ResponseErrorOptions} data

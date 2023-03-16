@@ -1,3 +1,9 @@
+/**
+ * @file Main entry point for the HttpResponseError library.
+ * @author <a href="https://github.com/coderua">Volodymyr Chumak</a>
+ * @see <a href="https://github.com/infotorg/http-response-error">GitHub repo</a>
+ * @license MIT
+ */
 export { default as BadRequestError } from './bad-request-error.js';
 export { default as ForbiddenError } from './forbidden-error.js';
 export { default as InternalServerError } from './internal-server-error.js';

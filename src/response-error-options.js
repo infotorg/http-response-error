@@ -31,6 +31,10 @@ const normalizeCode = (code, fallbacks = []) => {
 };
 
 /**
+ * @typedef {{code: (number|string), requestId: string, details: (string|*), message: string}} Options
+ */
+
+/**
  * ResponseErrorOptions class
  *
  * Represents the options for the ResponseError class instantiation
@@ -39,7 +43,9 @@ const normalizeCode = (code, fallbacks = []) => {
  */
 export default class ResponseErrorOptions {
   /**
-   * @typedef {{code: (number|string), requestId: string, details: (string|*), message: string}} Options
+   * Instance options
+   *
+   * @type {Options}
    */
   #options = {};
 
