@@ -11,10 +11,16 @@ import ResponseErrorOptions from './response-error-options';
  * @property {String} requestId Request ID
  * @property {String|*} details Error details
  */
-export default class ResponseError extends Error {
+class ResponseError extends Error {
+  /**
+   * @ignore
+   * @typedef {module:response-error-options~Options} Options
+   */
+
   /**
    * ResponseError constructor
-   * @param {Object|String|ResponseErrorOptions} data
+   *
+   * @param {Object|String|ResponseErrorOptions|Options} data
    */
   constructor(
     data = {
@@ -38,6 +44,17 @@ export default class ResponseError extends Error {
   /**
    * Plain object representation of the error
    *
+   * @example
+   * // returned object
+   * {
+   *   error: {
+   *     code: 400,
+   *     requestId: '123456-test-request-id',
+   *     message: 'Baaaaaad Request :-(',
+   *     details: 'Check your request body'
+   *   }
+   * }
+   *
    * @return {{error: {code: (number|string), requestId: string, details: (string|*), message: string}}}
    */
   toPojo() {
@@ -54,6 +71,17 @@ export default class ResponseError extends Error {
   /**
    * Plain object representation of the error
    *
+   * @example
+   * // returned JSON
+   * {
+   *   error: {
+   *     code: 400,
+   *     requestId: '123456-test-request-id',
+   *     message: 'Baaaaaad Request :-(',
+   *     details: 'Check your request body'
+   *   }
+   * }
+   *
    * @return {{error: {code: (number|string), requestId: string, details: (string|*), message: string}}}
    */
   toJSON() {
@@ -63,9 +91,15 @@ export default class ResponseError extends Error {
   /**
    * String representation of the error
    *
+   * @example
+   * // returned string
+   * {"error":{"code":400,"requestId":"123456-test-request-id","message":"Baaaaaad Request :-(","details":"Check your request body"}}
+   *
    * @return {string}
    */
   toString() {
     return JSON.stringify(this.toPojo());
   }
 }
+
+export default ResponseError;

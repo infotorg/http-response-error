@@ -1,5 +1,6 @@
 /**
  * @file Main entry point for the HttpResponseError library.
+ *
  * @author <a href="https://github.com/coderua">Volodymyr Chumak</a>
  * @see <a href="https://github.com/infotorg/http-response-error">GitHub repo</a>
  * @license MIT

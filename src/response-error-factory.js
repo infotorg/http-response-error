@@ -1,23 +1,26 @@
-import {
-  BadRequestError,
-  ForbiddenError,
-  InternalServerError,
-  NotFoundError,
-  ResponseError,
-  ServiceUnavailableError,
-  TooManyRequestsError,
-  UnauthorizedError,
-  UnavailableForLegalReasonsError,
-  UnprocessableEntityError,
-} from './main.js';
-import ResponseErrorOptions from './response-error-options.js';
+import BadRequestError from './bad-request-error.js';
+import ForbiddenError from './forbidden-error.js';
+import InternalServerError from './internal-server-error.js';
+import NotFoundError from './not-found-error.js';
+import ResponseError from './response-error';
+import ResponseErrorOptions from './response-error-options';
+import ServiceUnavailableError from './service-unavailable-error.js';
+import TooManyRequestsError from './too-many-requests-error.js';
+import UnauthorizedError from './unauthorized-error.js';
+import UnavailableForLegalReasonsError from './unavailable-for-legal-reasons-error.js';
+import UnprocessableEntityError from './unprocessable-entity-error.js';
 
 /**
- * Factory class to create ResponseError instances.
+ * Factory class to create {@link ResponseError} instances like: {@link ServiceUnavailableError}, {@link UnauthorizedError}, {@link TooManyRequestsError}, {@link BadRequestError}, {@link ForbiddenError}, {@link UnprocessableEntityError}, {@link NotFoundError}, {@link UnavailableForLegalReasonsError}, {@link InternalServerError}.
  *
- * @class ResponseErrorFactory
+ * @class
  */
-export default class ResponseErrorFactory {
+class ResponseErrorFactory {
+  /**
+   * @ignore
+   * @typedef {module:response-error-options~Options} Options
+   */
+
   constructor() {
     if (this.constructor === ResponseErrorFactory) {
       throw new Error("Factory class can't be instantiated. Use 'create' static method instead.");
@@ -28,7 +31,7 @@ export default class ResponseErrorFactory {
    * Creates a ResponseError instance.
    *
    * @static
-   * @param {Object|ResponseErrorOptions} config
+   * @param {Object|ResponseErrorOptions|Options} config
    * @return {ResponseError|ServiceUnavailableError|UnauthorizedError|TooManyRequestsError|BadRequestError|ForbiddenError|UnprocessableEntityError|NotFoundError|UnavailableForLegalReasonsError|InternalServerError}
    * @throws {TypeError}
    */
@@ -65,3 +68,5 @@ export default class ResponseErrorFactory {
     }
   }
 }
+
+export default ResponseErrorFactory;

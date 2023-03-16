@@ -64,7 +64,7 @@ describe('Tests BadRequestError response error class', () => {
         code: 400,
         message: 'Baaaaaad Request :-(',
         requestId: requestId(),
-        details: '',
+        details: 'Check your request body',
       };
       const expected = {
         error: config,

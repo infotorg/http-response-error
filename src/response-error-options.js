@@ -1,6 +1,7 @@
 /**
  * Normalize the message and use the fallbacks if the message is empty or is not a string
  *
+ * @private
  * @param {string} message
  * @param {string[]} fallbacks
  * @return {string}
@@ -16,6 +17,7 @@ const normalizeMessage = (message, fallbacks = []) => {
 /**
  * Normalize the code and use the fallbacks if the code is empty or is not a number
  *
+ * @private
  * @param {string} code
  * @param {string[]|number[]} fallbacks
  * @return {number|string}
@@ -31,7 +33,11 @@ const normalizeCode = (code, fallbacks = []) => {
 };
 
 /**
- * @typedef {{code: (number|string), requestId: string, details: (string|*), message: string}} Options
+ * @typedef {Object} Options - Options
+ * @property {number|string} code - Error code
+ * @property {string} message - Error message
+ * @property {string} requestId - Request ID
+ * @property {string|*} details - Error details
  */
 
 /**
@@ -41,7 +47,7 @@ const normalizeCode = (code, fallbacks = []) => {
  *
  * @class
  */
-export default class ResponseErrorOptions {
+class ResponseErrorOptions {
   /**
    * Instance options
    *
@@ -66,9 +72,9 @@ export default class ResponseErrorOptions {
   /**
    * ResponseErrorOptions constructor
    *
-   * @param {Object} options
-   * @param {number|string} [fallbackCode=500]
-   * @param {string} [fallbackMessage='Internal Server Error']
+   * @param {Options} [options={}] Error options
+   * @param {number|string} [fallbackCode=500] Fallback error code. Used if it is not exists in options or it could not be converted in a number
+   * @param {string} [fallbackMessage='Internal Server Error'] Fallback error message. Used if it is not exists in options or it is not a string.
    */
   constructor(options = {}, fallbackCode = 500, fallbackMessage = 'Internal Server Error') {
     const params = options && typeof options === 'object' && Object.keys(options).length ? options : {};
@@ -85,9 +91,9 @@ export default class ResponseErrorOptions {
   /**
    * Create the ResponseErrorOptions instance
    *
-   * @param {Object|ResponseErrorOptions} options
-   * @param {number|string} [fallbackCode=500]
-   * @param {string} [fallbackMessage='Internal Server Error']
+   * @param {Options} [options={}] Error options
+   * @param {number|string} [fallbackCode=500] Fallback error code. Used if it is not exists in options or it could not be converted in a number
+   * @param {string} [fallbackMessage='Internal Server Error'] Fallback error message. Used if it is not exists in options or it is not a string.
    * @return {ResponseErrorOptions}
    */
   static create(options = {}, fallbackCode = 500, fallbackMessage = 'Internal Server Error') {
@@ -168,3 +174,5 @@ export default class ResponseErrorOptions {
     return this;
   }
 }
+
+export default ResponseErrorOptions;

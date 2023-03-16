@@ -27,6 +27,9 @@ node_modules/
 # Build generate
 dist/
 
+# Documentation
+docs/
+
 # IDE / Editor
 .idea
 .vscode
