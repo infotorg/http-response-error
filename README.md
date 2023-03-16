@@ -1,6 +1,6 @@
 # http-response-error
 
-HTTP Response error classes
+A collection of HTTP Response error classes
 
 ## Installation
 

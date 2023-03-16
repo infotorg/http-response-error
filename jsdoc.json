@@ -19,6 +19,23 @@
     "template": "node_modules/clean-jsdoc-theme",
     "destination": "./docs/",
     "encoding": "utf8",
-    "recurse": true
+    "recurse": true,
+    "theme_opts": {
+      "default_theme": "light",
+      "homepageTitle": "API Documentation – @infotorg/HttpResponseError",
+      "meta": [
+        {
+          "name": "author",
+          "content": "Volodymyr Chumak"
+        },
+        {
+          "name": "description",
+          "content": "A collection of HTTP response error classes."
+        }
+      ]
+    }
+  },
+  "markdown": {
+    "idInHeadings": true
   }
 }
