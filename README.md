@@ -8,6 +8,8 @@ HTTP Response error classes
 $ npm install @infotorg/http-response-error
 ```
 
+## [API documentation](https://infotorg.github.io/http-response-error/)
+
 ## Usage
 
 ```javascript
