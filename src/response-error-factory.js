@@ -42,29 +42,29 @@ class ResponseErrorFactory {
       );
     }
 
-    const options = ResponseErrorOptions.create(config, 500, 'Internal Server Error');
+    const code = ResponseErrorOptions.parseCode(config.code, [500]);
 
-    switch (options.code) {
+    switch (code) {
       case 400:
-        return new BadRequestError(options);
+        return new BadRequestError(config);
       case 401:
-        return new UnauthorizedError(options);
+        return new UnauthorizedError(config);
       case 403:
-        return new ForbiddenError(options);
+        return new ForbiddenError(config);
       case 404:
-        return new NotFoundError(options);
+        return new NotFoundError(config);
       case 422:
-        return new UnprocessableEntityError(options);
+        return new UnprocessableEntityError(config);
       case 429:
-        return new TooManyRequestsError(options);
+        return new TooManyRequestsError(config);
       case 451:
-        return new UnavailableForLegalReasonsError(options);
+        return new UnavailableForLegalReasonsError(config);
       case 500:
-        return new InternalServerError(options);
+        return new InternalServerError(config);
       case 503:
-        return new ServiceUnavailableError(options);
+        return new ServiceUnavailableError(config);
       default:
-        return new ResponseError(options);
+        return new ResponseError(config);
     }
   }
 }

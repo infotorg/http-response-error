@@ -15,24 +15,6 @@ const normalizeMessage = (message, fallbacks = []) => {
 };
 
 /**
- * Normalize the code and use the fallbacks if the code is empty or is not a number
- *
- * @private
- * @param {string} code
- * @param {string[]|number[]} fallbacks
- * @return {number|string}
- */
-const normalizeCode = (code, fallbacks = []) => {
-  const parsedCode = parseInt(code, 10);
-
-  if (isNaN(parsedCode)) {
-    return fallbacks.length ? fallbacks.shift() : 500;
-  }
-
-  return parsedCode;
-};
-
-/**
  * @typedef {Object} Options - Options
  * @property {number|string} code - Error code
  * @property {string} message - Error message
@@ -51,7 +33,7 @@ class ResponseErrorOptions {
   /**
    * Instance options
    *
-   * @type {Options}
+   * @type {Options|Object}
    */
   #options = {};
 
@@ -72,16 +54,27 @@ class ResponseErrorOptions {
   /**
    * ResponseErrorOptions constructor
    *
-   * @param {Options} [options={}] Error options
+   * @param {Options|object|string} [options={}] Error options or error message
    * @param {number|string} [fallbackCode=500] Fallback error code. Used if it is not exists in options or it could not be converted in a number
    * @param {string} [fallbackMessage='Internal Server Error'] Fallback error message. Used if it is not exists in options or it is not a string.
    */
   constructor(options = {}, fallbackCode = 500, fallbackMessage = 'Internal Server Error') {
-    const params = options && typeof options === 'object' && Object.keys(options).length ? options : {};
+    let params = {};
+
+    if (options instanceof ResponseErrorOptions) {
+      params = { ...options.options };
+    } else if (options && typeof options === 'object' && Object.keys(options).length) {
+      params = { ...options };
+    } else if (typeof options === 'string') {
+      params = {
+        message: options,
+      };
+    }
+
     const defaultOptions = ResponseErrorOptions.defaultOptions();
 
+    params.code = ResponseErrorOptions.parseCode(params.code, [fallbackCode, defaultOptions.code]);
     params.message = normalizeMessage(params.message, [fallbackMessage, defaultOptions.message]);
-    params.code = normalizeCode(params.code, [fallbackCode, defaultOptions.code]);
 
     Object.keys(defaultOptions).forEach((property) => {
       this.#options[property] = params[property] || defaultOptions[property];
@@ -89,30 +82,31 @@ class ResponseErrorOptions {
   }
 
   /**
-   * Create the ResponseErrorOptions instance
+   * Normalize the code and use the fallbacks if the code is empty or is not a number
    *
-   * @param {Options} [options={}] Error options
-   * @param {number|string} [fallbackCode=500] Fallback error code. Used if it is not exists in options or it could not be converted in a number
-   * @param {string} [fallbackMessage='Internal Server Error'] Fallback error message. Used if it is not exists in options or it is not a string.
-   * @return {ResponseErrorOptions}
+   * @static
+   * @param {string|number} code - Error code
+   * @param {string[]|number[]|number|string} fallbacks - Fallback error codes
+   * @return {number|string}
    */
-  static create(options = {}, fallbackCode = 500, fallbackMessage = 'Internal Server Error') {
-    return options instanceof ResponseErrorOptions
-      ? options
-      : new ResponseErrorOptions(
-          {
-            code: fallbackCode,
-            ...(options && typeof options === 'object' ? options : { message: options }),
-          },
-          fallbackCode,
-          fallbackMessage
-        );
+  static parseCode(code, fallbacks = []) {
+    const parsedCode = parseInt(code, 10);
+
+    if (isNaN(parsedCode)) {
+      const fallbackCodes = (Array.isArray(fallbacks) ? fallbacks : [fallbacks])
+        .map((fallback) => parseInt(fallback, 10))
+        .filter((fallback) => !isNaN(fallback));
+
+      return fallbacks.length ? fallbacks.shift() : 500;
+    }
+
+    return parsedCode;
   }
 
   /**
    * Get the options
    *
-   * @return {Options}
+   * @return {Options|Object}
    */
   get options() {
     return this.#options;

@@ -51,7 +51,7 @@ describe('Tests ResponseErrorOptions response error class', () => {
     );
 
     test.each([null, undefined, false, true, '', 0])(
-      'it can create an instance with built-in code fallback',
+      'it can create an instance with built-in "code" fallback when the passed code cannot be cast to a number',
       (code) => {
         const instance = new ResponseErrorOptions({
           code,
@@ -70,16 +70,25 @@ describe('Tests ResponseErrorOptions response error class', () => {
       }
     );
 
-    test('it can create an instance with a config message param', () => {
-      const instance = new ResponseErrorOptions(
-        {
-          code: -1,
-          details: 'Error details',
-          requestId: '123456-test-request-id',
-          message: 'Something went wrong',
-        },
-        'Message fallback'
-      );
+    test('it can create an instance with a config "code" param', () => {
+      const instance = new ResponseErrorOptions({ code: 422 }, 500, 'Validation error');
+
+      expect(instance).toBeInstanceOf(ResponseErrorOptions);
+      expect(instance.options).toStrictEqual({
+        code: 422,
+        message: 'Validation error',
+        details: '',
+        requestId: '',
+      });
+    });
+
+    test('it can create an instance with a config "message" param', () => {
+      const instance = new ResponseErrorOptions({
+        code: -1,
+        details: 'Error details',
+        requestId: '123456-test-request-id',
+        message: 'Something went wrong',
+      });
 
       expect(instance).toBeInstanceOf(ResponseErrorOptions);
       expect(instance.options).toStrictEqual({
@@ -98,6 +107,7 @@ describe('Tests ResponseErrorOptions response error class', () => {
           requestId: '123456-test-request-id',
           message: 'Something went wrong',
         },
+        500,
         'Message fallback'
       );
 
@@ -113,5 +123,21 @@ describe('Tests ResponseErrorOptions response error class', () => {
 
       expect(instance.options).toStrictEqual(ResponseErrorOptions.defaultOptions());
     });
+  });
+
+  test.each([
+    { code: 200, fallbacks: [500], expected: 200 },
+    { code: true, fallbacks: [500], expected: 500 },
+    { code: false, fallbacks: [500], expected: 500 },
+    { code: undefined, fallbacks: [500], expected: 500 },
+    { code: () => {}, fallbacks: [500], expected: 500 },
+    { code: [], fallbacks: [500], expected: 500 },
+    { code: {}, fallbacks: [500], expected: 500 },
+    { code: null, fallbacks: [500], expected: 500 },
+    { code: '', fallbacks: [500], expected: 500 },
+    { code: 0, fallbacks: [500], expected: 0 },
+    { code: 'xyz', fallbacks: [500], expected: 500 },
+  ])('it should return parsed code: %p', ({ code, fallbacks, expected }) => {
+    expect(ResponseErrorOptions.parseCode(code, fallbacks)).toBe(expected);
   });
 });

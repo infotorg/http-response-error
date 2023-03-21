@@ -26,7 +26,7 @@ class UnauthorizedError extends ResponseError {
    * @param {Object|String|ResponseErrorOptions|Options|undefined} [data=undefined] Error message or options
    */
   constructor(data) {
-    super(ResponseErrorOptions.create(data, 401, 'Unauthorized'));
+    super(new ResponseErrorOptions(data, 401, 'Unauthorized'));
   }
 }
 

@@ -25,7 +25,7 @@ class ServiceUnavailableError extends ResponseError {
    * @param {Object|String|ResponseErrorOptions|Options|undefined} [data=undefined] Error message or options
    */
   constructor(data) {
-    super(ResponseErrorOptions.create(data, 503, 'Service Unavailable'));
+    super(new ResponseErrorOptions(data, 503, 'Service Unavailable'));
   }
 }
 

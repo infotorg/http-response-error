@@ -30,7 +30,7 @@ class ResponseError extends Error {
       details: '',
     }
   ) {
-    const { options } = ResponseErrorOptions.create(data, 500, 'Response error');
+    const { options } = new ResponseErrorOptions(data, 500, 'Response error');
 
     super(options.message);
 

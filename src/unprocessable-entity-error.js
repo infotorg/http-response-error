@@ -24,7 +24,7 @@ class UnprocessableEntityError extends ResponseError {
    * @param {Object|String|ResponseErrorOptions|Options|undefined} [data=undefined] Error message or options
    */
   constructor(data) {
-    super(ResponseErrorOptions.create(data, 422, 'Unprocessable Entity'));
+    super(new ResponseErrorOptions(data, 422, 'Unprocessable Entity'));
   }
 }
 

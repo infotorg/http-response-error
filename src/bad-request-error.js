@@ -24,7 +24,7 @@ class BadRequestError extends ResponseError {
    * @param {Object|String|ResponseErrorOptions|Options|undefined} [data=undefined] - Error message or options
    */
   constructor(data) {
-    super(ResponseErrorOptions.create(data, 400, 'Bad Request'));
+    super(new ResponseErrorOptions(data, 400, 'Bad Request'));
   }
 }
 

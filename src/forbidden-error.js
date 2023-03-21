@@ -26,7 +26,7 @@ class ForbiddenError extends ResponseError {
    *
    */
   constructor(data) {
-    super(ResponseErrorOptions.create(data, 403, 'Forbidden'));
+    super(new ResponseErrorOptions(data, 403, 'Forbidden'));
   }
 }
 

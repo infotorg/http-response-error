@@ -25,7 +25,7 @@ class InternalServerError extends ResponseError {
    * @param {Object|String|ResponseErrorOptions|Options|undefined} [data=undefined] Error message or options
    */
   constructor(data) {
-    super(ResponseErrorOptions.create(data, 500, 'Internal Server Error'));
+    super(new ResponseErrorOptions(data, 500, 'Internal Server Error'));
   }
 }
 
