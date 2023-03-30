@@ -1,21 +1,21 @@
 import requestId from './utils/request-id';
-import BadRequestError from '../src/bad-request-error.js';
+import PaymentRequiredError from '../src/payment-required-error.js';
 import ResponseErrorOptions from '../src/response-error-options.js';
 
-describe('Tests BadRequestError response error class', () => {
+describe('Tests PaymentRequiredError response error class', () => {
   describe('Instantiation without params', () => {
     test('it should return expected POJO/JSON information', () => {
       const expected = {
         error: {
-          message: 'Bad Request',
+          message: 'Payment Required',
           requestId: '',
-          code: 400,
+          code: 402,
           details: '',
         },
       };
-      const error = new BadRequestError();
+      const error = new PaymentRequiredError();
 
-      expect(error).toBeInstanceOf(BadRequestError);
+      expect(error).toBeInstanceOf(PaymentRequiredError);
       expect(error.toPojo()).toStrictEqual(expected);
       expect(error.toJSON()).toStrictEqual(expected);
     });
@@ -23,17 +23,17 @@ describe('Tests BadRequestError response error class', () => {
 
   describe('Instantiation with a message only', () => {
     test('it should return expected POJO/JSON information', () => {
-      const error = new BadRequestError('Bad Request! Please check your request body');
+      const error = new PaymentRequiredError('Payment Required for the content');
       const expected = {
         error: {
-          message: 'Bad Request! Please check your request body',
+          message: 'Payment Required for the content',
           requestId: '',
-          code: 400,
+          code: 402,
           details: '',
         },
       };
 
-      expect(error).toBeInstanceOf(BadRequestError);
+      expect(error).toBeInstanceOf(PaymentRequiredError);
       expect(error.toPojo()).toStrictEqual(expected);
       expect(error.toJSON()).toStrictEqual(expected);
     });
@@ -42,17 +42,17 @@ describe('Tests BadRequestError response error class', () => {
   describe('Instantiation with a plain object as a config', () => {
     test('it should return expected POJO/JSON information', () => {
       const config = {
-        code: 400,
-        message: 'Baaaaaad Request :-(',
+        code: 402,
+        message: 'This is not free content, please provide a payment.',
         requestId: requestId(),
         details: '',
       };
       const expected = {
         error: config,
       };
-      const error = new BadRequestError(config);
+      const error = new PaymentRequiredError(config);
 
-      expect(error).toBeInstanceOf(BadRequestError);
+      expect(error).toBeInstanceOf(PaymentRequiredError);
       expect(error.toPojo()).toStrictEqual(expected);
       expect(error.toJSON()).toStrictEqual(expected);
     });
@@ -61,8 +61,8 @@ describe('Tests BadRequestError response error class', () => {
   describe('Instantiation with the ResponseErrorOptions instance', () => {
     test('it should return expected POJO/JSON information', () => {
       const config = {
-        code: 400,
-        message: 'Baaaaaad Request :-(',
+        code: 402,
+        message: 'This is not free content, please provide a payment.',
         requestId: requestId(),
         details: 'Check your request body',
       };
@@ -70,9 +70,9 @@ describe('Tests BadRequestError response error class', () => {
         error: config,
       };
 
-      const error = new BadRequestError(new ResponseErrorOptions(config));
+      const error = new PaymentRequiredError(new ResponseErrorOptions(config));
 
-      expect(error).toBeInstanceOf(BadRequestError);
+      expect(error).toBeInstanceOf(PaymentRequiredError);
       expect(error.toPojo()).toStrictEqual(expected);
       expect(error.toJSON()).toStrictEqual(expected);
     });

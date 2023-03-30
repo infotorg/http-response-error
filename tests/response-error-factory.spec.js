@@ -3,6 +3,7 @@ import {
   ForbiddenError,
   InternalServerError,
   NotFoundError,
+  PaymentRequiredError,
   ResponseError,
   ResponseErrorFactory,
   ServiceUnavailableError,
@@ -74,6 +75,17 @@ describe('Tests ResponseErrorFactory class', () => {
       errorClass: UnauthorizedError,
       expectedCode: 401,
       expectedMessage: 'Unauthorized',
+    },
+    {
+      config: {
+        code: 402,
+        message: 'Payment Required',
+        requestId: 'test-request-id',
+        details: 'Please contact our support',
+      },
+      errorClass: PaymentRequiredError,
+      expectedCode: 402,
+      expectedMessage: 'Payment Required',
     },
     {
       config: { code: 403, message: 'Forbidden', requestId: 'test-request-id', details: 'Please contact our support' },

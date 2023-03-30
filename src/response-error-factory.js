@@ -4,6 +4,7 @@ import InternalServerError from './internal-server-error.js';
 import NotFoundError from './not-found-error.js';
 import ResponseError from './response-error';
 import ResponseErrorOptions from './response-error-options';
+import PaymentRequiredError from './payment-required-error';
 import ServiceUnavailableError from './service-unavailable-error.js';
 import TooManyRequestsError from './too-many-requests-error.js';
 import UnauthorizedError from './unauthorized-error.js';
@@ -49,6 +50,8 @@ class ResponseErrorFactory {
         return new BadRequestError(config);
       case 401:
         return new UnauthorizedError(config);
+      case 402:
+        return new PaymentRequiredError(config);
       case 403:
         return new ForbiddenError(config);
       case 404:
