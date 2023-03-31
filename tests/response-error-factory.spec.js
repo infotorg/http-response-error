@@ -37,7 +37,27 @@ describe('Tests ResponseErrorFactory class', () => {
     { code: 503, errorClass: ServiceUnavailableError, expectedCode: 503, expectedMessage: 'Service Unavailable' },
     // Unknown error code processed as ResponseError
     { code: 999, errorClass: ResponseError, expectedCode: 999, expectedMessage: 'Response error' },
+    { code: '', errorClass: InternalServerError, expectedCode: 500, expectedMessage: 'Internal Server Error' },
+    { code: undefined, errorClass: InternalServerError, expectedCode: 500, expectedMessage: 'Internal Server Error' },
+    { code: null, errorClass: InternalServerError, expectedCode: 500, expectedMessage: 'Internal Server Error' },
+    { code: false, errorClass: InternalServerError, expectedCode: 500, expectedMessage: 'Internal Server Error' },
+    { code: true, errorClass: InternalServerError, expectedCode: 500, expectedMessage: 'Internal Server Error' },
+    { code: [], errorClass: InternalServerError, expectedCode: 500, expectedMessage: 'Internal Server Error' },
+    { code: {}, errorClass: InternalServerError, expectedCode: 500, expectedMessage: 'Internal Server Error' },
+    { code: () => {}, errorClass: InternalServerError, expectedCode: 500, expectedMessage: 'Internal Server Error' },
     { code: 'xyz', errorClass: InternalServerError, expectedCode: 500, expectedMessage: 'Internal Server Error' },
+    {
+      code: 'ERR_HTTP_INVALID_STATUS_CODE',
+      errorClass: InternalServerError,
+      expectedCode: 500,
+      expectedMessage: 'Internal Server Error',
+    },
+    {
+      code: 'ECONNABORTED',
+      errorClass: InternalServerError,
+      expectedCode: 500,
+      expectedMessage: 'Internal Server Error',
+    },
   ])(
     'it should create a proper *ResponseError instance depending on status code',
     ({ code, errorClass, expectedCode, expectedMessage }) => {
