@@ -5,8 +5,10 @@
  * @see <a href="https://github.com/infotorg/http-response-error">GitHub repo</a>
  * @license MIT
  */
+export { default as BadGatewayError } from './bad-gateway-error.js';
 export { default as BadRequestError } from './bad-request-error.js';
 export { default as ForbiddenError } from './forbidden-error.js';
+export { default as GatewayTimeoutError } from './gateway-timeout-error.js';
 export { default as InternalServerError } from './internal-server-error.js';
 export { default as NotFoundError } from './not-found-error.js';
 export { default as PaymentRequiredError } from './payment-required-error';
