@@ -39,6 +39,10 @@ export { default as RequestTimeoutError } from './request-timeout-error.js';
 export { default as ConflictError } from './conflict-error.js';
 // 410 Gone
 export { default as GoneError } from './gone-error.js';
+// 411 Length Required
+export { default as LengthRequiredError } from './length-required-error.js';
+// 412 Precondition Failed
+export { default as PreconditionFailedError } from './precondition-failed-error.js';
 // 422 Unprocessable Entity
 export { default as UnprocessableEntityError } from './unprocessable-entity-error.js';
 // 429 Too Many Requests
