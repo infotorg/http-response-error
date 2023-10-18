@@ -43,6 +43,14 @@ export { default as GoneError } from './gone-error.js';
 export { default as LengthRequiredError } from './length-required-error.js';
 // 412 Precondition Failed
 export { default as PreconditionFailedError } from './precondition-failed-error.js';
+// 413 Content Too Large
+export { default as ContentTooLargeError } from './content-too-large-error.js';
+// 414 URI Too Long
+export { default as UriToLongError } from './uri-too-long-error.js';
+// 415 Unsupported Media Type
+export { default as UnsupportedMediaTypeError } from './unsupported-media-type-error.js';
+// 416 Range Not Satisfiable
+export { default as RangeNotSatisfiableError } from './range-not-satisfiable-error.js';
 // 422 Unprocessable Entity
 export { default as UnprocessableEntityError } from './unprocessable-entity-error.js';
 // 429 Too Many Requests

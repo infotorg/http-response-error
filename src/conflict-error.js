@@ -4,7 +4,7 @@ import ResponseErrorOptions from './response-error-options';
 /**
  * <b>"409 Conflict"</b> response error class.
  *
- * Indicates a request conflict with the current state of the target resource.
+ * Indicates that a request conflict with the current state of the target resource.
  *
  * Conflicts are most likely to occur in response to a PUT request.
  * For example, you may get a 409 response when uploading a file that is older than the existing one on the server,
