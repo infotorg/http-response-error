@@ -51,6 +51,8 @@ export { default as UriToLongError } from './uri-too-long-error.js';
 export { default as UnsupportedMediaTypeError } from './unsupported-media-type-error.js';
 // 416 Range Not Satisfiable
 export { default as RangeNotSatisfiableError } from './range-not-satisfiable-error.js';
+// 417 Expectation Failed
+export { default as ExpectationFailedError } from './expectation-failed-error.js';
 // 422 Unprocessable Entity
 export { default as UnprocessableEntityError } from './unprocessable-entity-error.js';
 // 429 Too Many Requests
