@@ -3,6 +3,8 @@ import {
   ForbiddenError,
   InternalServerError,
   NotFoundError,
+  NotAcceptableError,
+  MethodNotAllowedError,
   PaymentRequiredError,
   ResponseError,
   ResponseErrorFactory,
@@ -25,6 +27,8 @@ describe('Tests ResponseErrorFactory class', () => {
     { code: 401, errorClass: UnauthorizedError, expectedCode: 401, expectedMessage: 'Unauthorized' },
     { code: 403, errorClass: ForbiddenError, expectedCode: 403, expectedMessage: 'Forbidden' },
     { code: 404, errorClass: NotFoundError, expectedCode: 404, expectedMessage: 'Not Found' },
+    { code: 405, errorClass: MethodNotAllowedError, expectedCode: 405, expectedMessage: 'Method Not Allowed' },
+    { code: 406, errorClass: NotAcceptableError, expectedCode: 406, expectedMessage: 'Not Acceptable' },
     { code: 422, errorClass: UnprocessableEntityError, expectedCode: 422, expectedMessage: 'Unprocessable Entity' },
     {
       code: 451,
