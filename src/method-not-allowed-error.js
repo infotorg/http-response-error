@@ -29,4 +29,22 @@ class MethodNotAllowedError extends ResponseError {
   }
 }
 
+/**
+ * Plain object representation of the error
+ *
+ * @function MethodNotAllowedError#toPojo
+ * @example
+ * // returned object
+ * {
+ *   error: {
+ *     code: 405,
+ *     requestId: '123456-test-request-id',
+ *     message: 'Method Not Allowed',
+ *     details: 'Check your request body'
+ *   }
+ * }
+ *
+ * @return {{ error: {code: (number|string), requestId: string, details: (string|*), message: string} }}
+ */
+
 export default MethodNotAllowedError;

@@ -55,7 +55,7 @@ class ResponseError extends Error {
    *   }
    * }
    *
-   * @return {{error: {code: (number|string), requestId: string, details: (string|*), message: string}}}
+   * @return {{ error: {code: (number|string), requestId: string, details: (string|*), message: string} }}
    */
   toPojo() {
     return {
