@@ -1,5 +1,7 @@
 import ResponseError from './response-error';
 import ResponseErrorOptions from './response-error-options';
+import statusCodes from './status-codes.js';
+import reasonPhrases from './reason-phrases.js';
 
 /**
  * <b>"409 Conflict"</b> response error class.
@@ -12,7 +14,7 @@ import ResponseErrorOptions from './response-error-options';
  *
  * @class
  * @extends ResponseError
- * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/409
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/409|409 Conflict - HTTP | MDN
  */
 class ConflictError extends ResponseError {
   /**
@@ -26,7 +28,7 @@ class ConflictError extends ResponseError {
    * @param {Object|String|ResponseErrorOptions|Options|undefined} [data=undefined] Error message or options
    */
   constructor(data) {
-    super(new ResponseErrorOptions(data, 409, 'Conflict'));
+    super(new ResponseErrorOptions(data, statusCodes.CONFLICT, reasonPhrases.CONFLICT));
   }
 }
 

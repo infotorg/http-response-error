@@ -1,5 +1,7 @@
 import ResponseError from './response-error';
 import ResponseErrorOptions from './response-error-options';
+import statusCodes from './status-codes.js';
+import reasonPhrases from './reason-phrases.js';
 
 /**
  * <b>"410 Gone"</b> response error class.
@@ -11,7 +13,7 @@ import ResponseErrorOptions from './response-error-options';
  *
  * @class
  * @extends ResponseError
- * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/410
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/410|410 Gone - HTTP | MDN
  */
 class GoneError extends ResponseError {
   /**
@@ -25,7 +27,7 @@ class GoneError extends ResponseError {
    * @param {Object|String|ResponseErrorOptions|Options|undefined} [data=undefined] Error message or options
    */
   constructor(data) {
-    super(new ResponseErrorOptions(data, 410, 'Gone'));
+    super(new ResponseErrorOptions(data, statusCodes.GONE, reasonPhrases.GONE));
   }
 }
 

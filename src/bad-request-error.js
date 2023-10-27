@@ -1,5 +1,7 @@
 import ResponseError from './response-error';
 import ResponseErrorOptions from './response-error-options';
+import statusCodes from './status-codes.js';
+import reasonPhrases from './reason-phrases.js';
 
 /**
  * <b>"400 Bad Request"</b> response error class.
@@ -10,7 +12,7 @@ import ResponseErrorOptions from './response-error-options';
  *
  * @class
  * @extends ResponseError
- * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/400|400 Bad Request - HTTP | MDN
  */
 class BadRequestError extends ResponseError {
   /**
@@ -24,7 +26,7 @@ class BadRequestError extends ResponseError {
    * @param {Object|String|ResponseErrorOptions|Options|undefined} [data=undefined] - Error message or options
    */
   constructor(data) {
-    super(new ResponseErrorOptions(data, 400, 'Bad Request'));
+    super(new ResponseErrorOptions(data, statusCodes.BAD_REQUEST, reasonPhrases.BAD_REQUEST));
   }
 }
 

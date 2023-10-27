@@ -1,5 +1,7 @@
 import ResponseError from './response-error';
 import ResponseErrorOptions from './response-error-options';
+import statusCodes from './status-codes.js';
+import reasonPhrases from './reason-phrases.js';
 
 /**
  * <b>"504 Gateway Timeout"</b> response error class.
@@ -11,7 +13,7 @@ import ResponseErrorOptions from './response-error-options';
  *
  * @class
  * @extends ResponseError
- * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/504
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/504|504 Gateway Timeout - HTTP | MDN
  */
 class GatewayTimeoutError extends ResponseError {
   /**
@@ -25,7 +27,7 @@ class GatewayTimeoutError extends ResponseError {
    * @param {Object|String|ResponseErrorOptions|Options|undefined} [data=undefined] - Error message or options
    */
   constructor(data) {
-    super(new ResponseErrorOptions(data, 504, 'Gateway Timeout'));
+    super(new ResponseErrorOptions(data, statusCodes.GATEWAY_TIMEOUT, reasonPhrases.GATEWAY_TIMEOUT));
   }
 }
 

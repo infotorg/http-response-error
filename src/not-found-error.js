@@ -1,5 +1,7 @@
 import ResponseError from './response-error';
 import ResponseErrorOptions from './response-error-options';
+import statusCodes from './status-codes.js';
+import reasonPhrases from './reason-phrases.js';
 
 /**
  * <b>"404 Not Found"</b> response error class.
@@ -12,7 +14,7 @@ import ResponseErrorOptions from './response-error-options';
  *
  * @class
  * @extends ResponseError
- * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404|404 Not Found - HTTP | MDN
  */
 class NotFoundError extends ResponseError {
   /**
@@ -26,7 +28,7 @@ class NotFoundError extends ResponseError {
    * @param {Object|String|ResponseErrorOptions|Options|undefined} [data=undefined] Error message or options
    */
   constructor(data) {
-    super(new ResponseErrorOptions(data, 404, 'Not Found'));
+    super(new ResponseErrorOptions(data, statusCodes.NOT_FOUND, reasonPhrases.NOT_FOUND));
   }
 }
 

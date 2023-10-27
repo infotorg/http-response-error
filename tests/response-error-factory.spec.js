@@ -27,6 +27,7 @@ import {
   UnprocessableEntityError,
   UnsupportedMediaTypeError,
   UriToLongError,
+  ImATeapotError,
 } from '../src/main.js';
 import requestId from './utils/request-id.js';
 import ResponseErrorOptions from '../src/response-error-options.js';
@@ -59,6 +60,7 @@ describe('Tests ResponseErrorFactory class', () => {
     { code: 415, errorClass: UnsupportedMediaTypeError, expectedCode: 415, expectedMessage: 'Unsupported Media Type' },
     { code: 416, errorClass: RangeNotSatisfiableError, expectedCode: 416, expectedMessage: 'Range Not Satisfiable' },
     { code: 417, errorClass: ExpectationFailedError, expectedCode: 417, expectedMessage: 'Expectation Failed' },
+    { code: 418, errorClass: ImATeapotError, expectedCode: 418, expectedMessage: "I'm a teapot" },
     { code: 422, errorClass: UnprocessableEntityError, expectedCode: 422, expectedMessage: 'Unprocessable Entity' },
     {
       code: 451,
@@ -296,7 +298,7 @@ describe('Tests ResponseErrorFactory class', () => {
         requestId: 'test-request-id',
         details: 'Please contact our support',
       },
-      errorClass: ResponseError,
+      errorClass: ImATeapotError,
       expectedCode: 418,
       expectedMessage: "I'm a teapot",
     },

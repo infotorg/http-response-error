@@ -1,5 +1,7 @@
 import ResponseError from './response-error';
 import ResponseErrorOptions from './response-error-options';
+import statusCodes from './status-codes.js';
+import reasonPhrases from './reason-phrases.js';
 
 /**
  * <b>"405 Method Not Allowed"</b> response error class.
@@ -11,7 +13,7 @@ import ResponseErrorOptions from './response-error-options';
  *
  * @class
  * @extends ResponseError
- * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/405
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/405|405 Method Not Allowed - HTTP | MDN
  */
 class MethodNotAllowedError extends ResponseError {
   /**
@@ -25,7 +27,7 @@ class MethodNotAllowedError extends ResponseError {
    * @param {Object|String|ResponseErrorOptions|Options|undefined} [data=undefined] Error message or options
    */
   constructor(data) {
-    super(new ResponseErrorOptions(data, 405, 'Method Not Allowed'));
+    super(new ResponseErrorOptions(data, statusCodes.METHOD_NOT_ALLOWED, reasonPhrases.METHOD_NOT_ALLOWED));
   }
 }
 

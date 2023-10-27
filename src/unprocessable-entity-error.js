@@ -1,5 +1,7 @@
 import ResponseError from './response-error';
 import ResponseErrorOptions from './response-error-options';
+import statusCodes from './status-codes.js';
+import reasonPhrases from './reason-phrases.js';
 
 /**
  * <b>"422 Unprocessable Entity Response"</b> response error class.
@@ -10,7 +12,7 @@ import ResponseErrorOptions from './response-error-options';
  *
  * @class
  * @extends ResponseError
- * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/422
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/422|422 Unprocessable Entity - HTTP | MDN
  */
 class UnprocessableEntityError extends ResponseError {
   /**
@@ -24,7 +26,7 @@ class UnprocessableEntityError extends ResponseError {
    * @param {Object|String|ResponseErrorOptions|Options|undefined} [data=undefined] Error message or options
    */
   constructor(data) {
-    super(new ResponseErrorOptions(data, 422, 'Unprocessable Entity'));
+    super(new ResponseErrorOptions(data, statusCodes.UNPROCESSABLE_ENTITY, reasonPhrases.UNPROCESSABLE_ENTITY));
   }
 }
 

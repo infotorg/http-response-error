@@ -1,11 +1,13 @@
 import ResponseError from './response-error';
 import ResponseErrorOptions from './response-error-options';
+import statusCodes from './status-codes.js';
+import reasonPhrases from './reason-phrases.js';
 
 /**
  * <b>"416 Range Not Satisfiable"</b> response error class.
  *
  * Indicates that a server cannot serve the requested ranges.
- * The most likely reason is that the document doesn't contain such ranges, or that the Range header value,
+ * The most likely reason is that the document doesn't contain such ranges, or that the `Range` header value,
  * though syntactically correct, doesn't make sense.
  *
  * The 416 response message contains a `Content-Range` indicating an unsatisfied range (that is a '*') followed by a '/'
@@ -16,7 +18,7 @@ import ResponseErrorOptions from './response-error-options';
  *
  * @class
  * @extends ResponseError
- * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/416
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/416|416 Range Not Satisfiable - HTTP | MDN
  */
 class RangeNotSatisfiableError extends ResponseError {
   /**
@@ -30,7 +32,7 @@ class RangeNotSatisfiableError extends ResponseError {
    * @param {Object|String|ResponseErrorOptions|Options|undefined} [data=undefined] Error message or options
    */
   constructor(data) {
-    super(new ResponseErrorOptions(data, 416, 'Range Not Satisfiable'));
+    super(new ResponseErrorOptions(data, statusCodes.RANGE_NOT_SATISFIABLE, reasonPhrases.RANGE_NOT_SATISFIABLE));
   }
 }
 

@@ -6,6 +6,9 @@
  * @license MIT
  */
 
+// Status codes
+export { default as statusCodes } from './status-codes.js';
+
 // Base class for all errors
 export { default as ResponseError } from './response-error';
 // Factory for creating ResponseError instances
@@ -53,6 +56,8 @@ export { default as UnsupportedMediaTypeError } from './unsupported-media-type-e
 export { default as RangeNotSatisfiableError } from './range-not-satisfiable-error.js';
 // 417 Expectation Failed
 export { default as ExpectationFailedError } from './expectation-failed-error.js';
+// 418 I'm a teapot
+export { default as ImATeapotError } from './im-a-teapot-error.js';
 // 422 Unprocessable Entity
 export { default as UnprocessableEntityError } from './unprocessable-entity-error.js';
 // 429 Too Many Requests

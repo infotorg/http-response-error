@@ -1,5 +1,7 @@
 import ResponseError from './response-error';
 import ResponseErrorOptions from './response-error-options';
+import statusCodes from './status-codes.js';
+import reasonPhrases from './reason-phrases.js';
 
 /**
  * <b>"407 Proxy Authentication Required"</b> response error class.
@@ -11,7 +13,7 @@ import ResponseErrorOptions from './response-error-options';
  *
  * @class
  * @extends ResponseError
- * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/407
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/407|407 Proxy Authentication Required - HTTP | MDN
  */
 class ProxyAuthenticationRequiredError extends ResponseError {
   /**
@@ -25,7 +27,13 @@ class ProxyAuthenticationRequiredError extends ResponseError {
    * @param {Object|String|ResponseErrorOptions|Options|undefined} [data=undefined] Error message or options
    */
   constructor(data) {
-    super(new ResponseErrorOptions(data, 407, 'Proxy Authentication Required'));
+    super(
+      new ResponseErrorOptions(
+        data,
+        statusCodes.PROXY_AUTHENTICATION_REQUIRED,
+        reasonPhrases.PROXY_AUTHENTICATION_REQUIRED
+      )
+    );
   }
 }
 

@@ -1,5 +1,7 @@
 import ResponseError from './response-error';
 import ResponseErrorOptions from './response-error-options';
+import statusCodes from './status-codes.js';
+import reasonPhrases from './reason-phrases.js';
 
 /**
  * <b>"417 Expectation Failed"</b> response error class.
@@ -8,7 +10,7 @@ import ResponseErrorOptions from './response-error-options';
  *
  * See the {@link https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Expect|Expect} header for more details
  *
- * MDN Documentation: {@link https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/417|417 Expectation Failed}
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/417|417 Expectation Failed - HTTP | MDN
  *
  * @class
  * @extends ResponseError
@@ -25,7 +27,7 @@ class ExpectationFailedError extends ResponseError {
    * @param {Object|String|ResponseErrorOptions|Options|undefined} [data=undefined] Error message or options
    */
   constructor(data) {
-    super(new ResponseErrorOptions(data, 417, 'Expectation Failed'));
+    super(new ResponseErrorOptions(data, statusCodes.EXPECTATION_FAILED, reasonPhrases.EXPECTATION_FAILED));
   }
 }
 

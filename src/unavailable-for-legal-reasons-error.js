@@ -1,5 +1,7 @@
 import ResponseError from './response-error';
 import ResponseErrorOptions from './response-error-options';
+import statusCodes from './status-codes.js';
+import reasonPhrases from './reason-phrases.js';
 
 /**
  * <b>"451 Unavailable For Legal Reasons"</b> response error class.
@@ -8,7 +10,7 @@ import ResponseErrorOptions from './response-error-options';
  *
  * @class
  * @extends ResponseError
- * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/451
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/451|451 Unavailable For Legal Reasons - HTTP | MDN
  */
 class UnavailableForLegalReasonsError extends ResponseError {
   /**
@@ -22,7 +24,13 @@ class UnavailableForLegalReasonsError extends ResponseError {
    * @param {Object|String|ResponseErrorOptions|Options|undefined} [data=undefined] Error message or options
    */
   constructor(data) {
-    super(new ResponseErrorOptions(data, 451, 'Unavailable For Legal Reasons'));
+    super(
+      new ResponseErrorOptions(
+        data,
+        statusCodes.UNAVAILABLE_FOR_LEGAL_REASONS,
+        reasonPhrases.UNAVAILABLE_FOR_LEGAL_REASONS
+      )
+    );
   }
 }
 

@@ -1,5 +1,7 @@
 import ResponseError from './response-error';
 import ResponseErrorOptions from './response-error-options';
+import statusCodes from './status-codes.js';
+import reasonPhrases from './reason-phrases.js';
 
 /**
  * <b>"402 Payment Required"</b> response error class.
@@ -16,7 +18,7 @@ import ResponseErrorOptions from './response-error-options';
  *
  * @class
  * @extends ResponseError
- * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/402|402 Payment Required - HTTP | MDN
  */
 class PaymentRequiredError extends ResponseError {
   /**
@@ -30,7 +32,7 @@ class PaymentRequiredError extends ResponseError {
    * @param {Object|String|ResponseErrorOptions|Options|undefined} [data=undefined] Error message or options
    */
   constructor(data) {
-    super(new ResponseErrorOptions(data, 402, 'Payment Required'));
+    super(new ResponseErrorOptions(data, statusCodes.PAYMENT_REQUIRED, reasonPhrases.PAYMENT_REQUIRED));
   }
 }
 

@@ -26,6 +26,8 @@ import UnavailableForLegalReasonsError from './unavailable-for-legal-reasons-err
 import UnprocessableEntityError from './unprocessable-entity-error.js';
 import UnsupportedMediaTypeError from './unsupported-media-type-error.js';
 import UriToLongError from './uri-too-long-error.js';
+import ImATeapotError from './im-a-teapot-error.js';
+import statusCodes from './status-codes.js';
 
 /**
  * Factory class to create {@link ResponseError} instances like: {@link ServiceUnavailableError}, {@link UnauthorizedError}, {@link TooManyRequestsError}, {@link BadRequestError}, {@link ForbiddenError}, {@link UnprocessableEntityError}, {@link NotFoundError}, {@link UnavailableForLegalReasonsError}, {@link InternalServerError}.
@@ -59,64 +61,69 @@ class ResponseErrorFactory {
       );
     }
 
-    const code = ResponseErrorOptions.parseCode(config.code, [500]);
+    const {
+      BAD_REQUEST,
+      UNAUTHORIZED,
+      PAYMENT_REQUIRED,
+      FORBIDDEN,
+      NOT_FOUND,
+      METHOD_NOT_ALLOWED,
+      NOT_ACCEPTABLE,
+      PROXY_AUTHENTICATION_REQUIRED,
+      REQUEST_TIMEOUT,
+      CONFLICT,
+      GONE,
+      LENGTH_REQUIRED,
+      PRECONDITION_FAILED,
+      CONTENT_TOO_LARGE,
+      URI_TOO_LONG,
+      UNSUPPORTED_MEDIA_TYPE,
+      RANGE_NOT_SATISFIABLE,
+      EXPECTATION_FAILED,
+      IM_A_TEAPOT,
+      UNPROCESSABLE_ENTITY,
+      TOO_MANY_REQUESTS,
+      UNAVAILABLE_FOR_LEGAL_REASONS,
+      INTERNAL_SERVER_ERROR,
+      NOT_IMPLEMENTED,
+      BAD_GATEWAY,
+      SERVICE_UNAVAILABLE,
+      GATEWAY_TIMEOUT,
+    } = statusCodes;
 
-    switch (code) {
-      case 400:
-        return new BadRequestError(config);
-      case 401:
-        return new UnauthorizedError(config);
-      case 402:
-        return new PaymentRequiredError(config);
-      case 403:
-        return new ForbiddenError(config);
-      case 404:
-        return new NotFoundError(config);
-      case 405:
-        return new MethodNotAllowedError(config);
-      case 406:
-        return new NotAcceptableError(config);
-      case 407:
-        return new ProxyAuthenticationRequiredError(config);
-      case 408:
-        return new RequestTimeoutError(config);
-      case 409:
-        return new ConflictError(config);
-      case 410:
-        return new GoneError(config);
-      case 411:
-        return new LengthRequiredError(config);
-      case 412:
-        return new PreconditionFailedError(config);
-      case 413:
-        return new ContentTooLargeError(config);
-      case 414:
-        return new UriToLongError(config);
-      case 415:
-        return new UnsupportedMediaTypeError(config);
-      case 416:
-        return new RangeNotSatisfiableError(config);
-      case 417:
-        return new ExpectationFailedError(config);
-      case 422:
-        return new UnprocessableEntityError(config);
-      case 429:
-        return new TooManyRequestsError(config);
-      case 451:
-        return new UnavailableForLegalReasonsError(config);
-      case 500:
-        return new InternalServerError(config);
-      case 501:
-        return new NotImplementedError(config);
-      case 502:
-        return new BadGatewayError(config);
-      case 503:
-        return new ServiceUnavailableError(config);
-      case 504:
-        return new GatewayTimeoutError(config);
-      default:
-        return new ResponseError(config);
-    }
+    const classMap = {
+      [BAD_REQUEST]: BadRequestError,
+      [UNAUTHORIZED]: UnauthorizedError,
+      [PAYMENT_REQUIRED]: PaymentRequiredError,
+      [FORBIDDEN]: ForbiddenError,
+      [NOT_FOUND]: NotFoundError,
+      [METHOD_NOT_ALLOWED]: MethodNotAllowedError,
+      [NOT_ACCEPTABLE]: NotAcceptableError,
+      [PROXY_AUTHENTICATION_REQUIRED]: ProxyAuthenticationRequiredError,
+      [REQUEST_TIMEOUT]: RequestTimeoutError,
+      [CONFLICT]: ConflictError,
+      [GONE]: GoneError,
+      [LENGTH_REQUIRED]: LengthRequiredError,
+      [PRECONDITION_FAILED]: PreconditionFailedError,
+      [CONTENT_TOO_LARGE]: ContentTooLargeError,
+      [URI_TOO_LONG]: UriToLongError,
+      [UNSUPPORTED_MEDIA_TYPE]: UnsupportedMediaTypeError,
+      [RANGE_NOT_SATISFIABLE]: RangeNotSatisfiableError,
+      [EXPECTATION_FAILED]: ExpectationFailedError,
+      [IM_A_TEAPOT]: ImATeapotError,
+      [UNPROCESSABLE_ENTITY]: UnprocessableEntityError,
+      [TOO_MANY_REQUESTS]: TooManyRequestsError,
+      [UNAVAILABLE_FOR_LEGAL_REASONS]: UnavailableForLegalReasonsError,
+      [INTERNAL_SERVER_ERROR]: InternalServerError,
+      [NOT_IMPLEMENTED]: NotImplementedError,
+      [BAD_GATEWAY]: BadGatewayError,
+      [SERVICE_UNAVAILABLE]: ServiceUnavailableError,
+      [GATEWAY_TIMEOUT]: GatewayTimeoutError,
+    };
+    const code = ResponseErrorOptions.parseCode(config.code, [500]);
+    const className = classMap[code] || ResponseError;
+
+    return new className(config);
   }
 }
 

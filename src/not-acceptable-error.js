@@ -1,5 +1,7 @@
 import ResponseError from './response-error';
 import ResponseErrorOptions from './response-error-options';
+import statusCodes from './status-codes.js';
+import reasonPhrases from './reason-phrases.js';
 
 /**
  * <b>"406 Not Acceptable"</b> response error class.
@@ -9,7 +11,7 @@ import ResponseErrorOptions from './response-error-options';
  *
  * @class
  * @extends ResponseError
- * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/406
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/406|406 Not Acceptable - HTTP | MDN
  */
 class NotAcceptableError extends ResponseError {
   /**
@@ -23,7 +25,7 @@ class NotAcceptableError extends ResponseError {
    * @param {Object|String|ResponseErrorOptions|Options|undefined} [data=undefined] Error message or options
    */
   constructor(data) {
-    super(new ResponseErrorOptions(data, 406, 'Not Acceptable'));
+    super(new ResponseErrorOptions(data, statusCodes.NOT_ACCEPTABLE, reasonPhrases.NOT_ACCEPTABLE));
   }
 }
 

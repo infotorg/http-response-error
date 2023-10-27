@@ -55,8 +55,8 @@ class ResponseErrorOptions {
    * ResponseErrorOptions constructor
    *
    * @param {Options|object|string} [options={}] Error options or error message
-   * @param {number|string} [fallbackCode=500] Fallback error code. Used if it is not exists in options or it could not be converted in a number
-   * @param {string} [fallbackMessage='Internal Server Error'] Fallback error message. Used if it is not exists in options or it is not a string.
+   * @param {number|string} [fallbackCode=500] Fallback error code. Used if it is not exists in options, or it could not be converted in a number
+   * @param {string} [fallbackMessage='Internal Server Error'] Fallback error message. Used if it is not exists in options, or it is not a string.
    */
   constructor(options = {}, fallbackCode = 500, fallbackMessage = 'Internal Server Error') {
     let params = {};

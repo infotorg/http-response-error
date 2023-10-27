@@ -1,5 +1,7 @@
 import ResponseError from './response-error';
 import ResponseErrorOptions from './response-error-options';
+import statusCodes from './status-codes.js';
+import reasonPhrases from './reason-phrases.js';
 
 /**
  * <b>"414 URI Too Long"</b> response error class.
@@ -13,7 +15,7 @@ import ResponseErrorOptions from './response-error-options';
  *
  * @class
  * @extends ResponseError
- * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/414
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/414|414 URI Too Long - HTTP | MDN
  */
 class UriToLongError extends ResponseError {
   /**
@@ -27,7 +29,7 @@ class UriToLongError extends ResponseError {
    * @param {Object|String|ResponseErrorOptions|Options|undefined} [data=undefined] Error message or options
    */
   constructor(data) {
-    super(new ResponseErrorOptions(data, 414, 'URI Too Long'));
+    super(new ResponseErrorOptions(data, statusCodes.URI_TOO_LONG, reasonPhrases.URI_TOO_LONG));
   }
 }
 

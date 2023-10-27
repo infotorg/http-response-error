@@ -42,6 +42,24 @@ class ResponseError extends Error {
   }
 
   /**
+   * Error status
+   *
+   * @example
+   * 404 Not Found
+   *
+   * @example
+   * 451 Unavailable For Legal Reasons
+   *
+   * @example
+   * 500 Internal Server Error
+   *
+   * @return {string}
+   */
+  get status() {
+    return [this.code, this.message].filter(Boolean).join(' ');
+  }
+
+  /**
    * Plain object representation of the error
    *
    * @example

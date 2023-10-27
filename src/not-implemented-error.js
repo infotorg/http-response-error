@@ -1,5 +1,7 @@
 import ResponseError from './response-error';
 import ResponseErrorOptions from './response-error-options';
+import statusCodes from './status-codes.js';
+import reasonPhrases from './reason-phrases.js';
 
 /**
  * <b>"501 Not Implemented"</b> response error class.
@@ -18,7 +20,7 @@ import ResponseErrorOptions from './response-error-options';
  *
  * @class
  * @extends ResponseError
- * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/501
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/501|501 Not Implemented - HTTP | MDN
  */
 class NotImplementedError extends ResponseError {
   /**
@@ -32,7 +34,7 @@ class NotImplementedError extends ResponseError {
    * @param {Object|String|ResponseErrorOptions|Options|undefined} [data=undefined] Error message or options
    */
   constructor(data) {
-    super(new ResponseErrorOptions(data, 501, 'Not Implemented'));
+    super(new ResponseErrorOptions(data, statusCodes.NOT_IMPLEMENTED, reasonPhrases.NOT_IMPLEMENTED));
   }
 }
 

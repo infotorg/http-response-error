@@ -1,5 +1,7 @@
 import ResponseError from './response-error';
 import ResponseErrorOptions from './response-error-options';
+import statusCodes from './status-codes.js';
+import reasonPhrases from './reason-phrases.js';
 
 /**
  * <b>"502 Bad Gateway"</b> response error class.
@@ -11,7 +13,7 @@ import ResponseErrorOptions from './response-error-options';
  *
  * @class
  * @extends ResponseError
- * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/502
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/502|502 Bad Gateway - HTTP | MDN
  */
 class BadGatewayError extends ResponseError {
   /**
@@ -25,7 +27,7 @@ class BadGatewayError extends ResponseError {
    * @param {Object|String|ResponseErrorOptions|Options|undefined} [data=undefined] - Error message or options
    */
   constructor(data) {
-    super(new ResponseErrorOptions(data, 502, 'Bad Gateway'));
+    super(new ResponseErrorOptions(data, statusCodes.BAD_GATEWAY, reasonPhrases.BAD_GATEWAY));
   }
 }
 

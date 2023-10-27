@@ -49,6 +49,15 @@ console.log(error.toJSON());
 //     details: 'Some details about error'
 //   }
 // }
+
+console.log(error.status);
+// 404 Not Found
+
+console.log(error.code);
+// 404
+
+console.log(error.message);
+// Not Found
 ```
 
 ```javascript
@@ -66,6 +75,15 @@ console.log(error.toJSON());
 //     details: ''
 //   }
 // }
+
+console.log(error.status);
+// 429 Too Many Requests
+
+console.log(error.code);
+// 429
+
+console.log(error.message);
+// Too Many Requests
 ```
 
 ```javascript
@@ -83,6 +101,15 @@ console.log(error.toJSON());
 //     details: ''
 //   }
 // }
+
+console.log(error.status);
+// 429 Too Many Requests
+
+console.log(error.code);
+// 429
+
+console.log(error.message);
+// Rate limit exceeded
 ```
 
 ```javascript
@@ -105,6 +132,18 @@ console.log(error.toJSON());
 //     details: 'Please, contact our support https://support.example.com'
 //   }
 // }
+
+console.log(error.status);
+// 429 Too Many Requests
+
+console.log(error.code);
+// 429
+
+console.log(error.message);
+// Rate limit exceeded
+
+console.log(error.details);
+// Please, contact our support https://support.example.com
 ```
 
 ## Tests

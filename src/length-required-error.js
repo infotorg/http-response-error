@@ -1,5 +1,7 @@
 import ResponseError from './response-error';
 import ResponseErrorOptions from './response-error-options';
+import statusCodes from './status-codes.js';
+import reasonPhrases from './reason-phrases.js';
 
 /**
  * <b>"411 Length Required"</b> response error class.
@@ -12,7 +14,7 @@ import ResponseErrorOptions from './response-error-options';
  *
  * @class
  * @extends ResponseError
- * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/411
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/411|411 Length Required - HTTP | MDN
  */
 class LengthRequiredError extends ResponseError {
   /**
@@ -26,7 +28,7 @@ class LengthRequiredError extends ResponseError {
    * @param {Object|String|ResponseErrorOptions|Options|undefined} [data=undefined] Error message or options
    */
   constructor(data) {
-    super(new ResponseErrorOptions(data, 411, 'Length Required'));
+    super(new ResponseErrorOptions(data, statusCodes.LENGTH_REQUIRED, reasonPhrases.LENGTH_REQUIRED));
   }
 }
 

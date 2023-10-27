@@ -1,5 +1,7 @@
 import ResponseError from './response-error';
 import ResponseErrorOptions from './response-error-options';
+import statusCodes from './status-codes.js';
+import reasonPhrases from './reason-phrases.js';
 
 /**
  * <b>"413 Content Too Large"</b> response error class.
@@ -11,7 +13,7 @@ import ResponseErrorOptions from './response-error-options';
  *
  * @class
  * @extends ResponseError
- * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413
+ * @link https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/413|413 Content Too Large - HTTP | MDN
  */
 class ContentTooLargeError extends ResponseError {
   /**
@@ -25,7 +27,7 @@ class ContentTooLargeError extends ResponseError {
    * @param {Object|String|ResponseErrorOptions|Options|undefined} [data=undefined] Error message or options
    */
   constructor(data) {
-    super(new ResponseErrorOptions(data, 413, 'Content Too Large'));
+    super(new ResponseErrorOptions(data, statusCodes.CONTENT_TOO_LARGE, reasonPhrases.CONTENT_TOO_LARGE));
   }
 }
 

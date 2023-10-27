@@ -1,23 +1,23 @@
 import requestId from './utils/request-id';
-import ConflictError from '../src/conflict-error.js';
+import ImATeapotError from '../src/im-a-teapot-error.js';
 import ResponseErrorOptions from '../src/response-error-options.js';
 
-describe('Tests ConflictError response error class', () => {
+describe('Tests ImATeapotError response error class', () => {
   describe('Instantiation with the default params', () => {
     test('it can create the instance', () => {
-      expect(new ConflictError()).toBeInstanceOf(ConflictError);
+      expect(new ImATeapotError()).toBeInstanceOf(ImATeapotError);
     });
 
     test('it should return a proper status message', () => {
-      expect(new ConflictError().status).toBe('409 Conflict');
+      expect(new ImATeapotError().status).toBe("418 I'm a teapot");
     });
 
     test('it should return expected POJO/JSON information', () => {
-      expect(new ConflictError().toPojo()).toStrictEqual({
+      expect(new ImATeapotError().toPojo()).toStrictEqual({
         error: {
-          message: 'Conflict',
+          message: "I'm a teapot",
           requestId: '',
-          code: 409,
+          code: 418,
           details: '',
         },
       });
@@ -26,15 +26,15 @@ describe('Tests ConflictError response error class', () => {
 
   describe('Instantiation with a message only', () => {
     test('it can create the instance with a message', () => {
-      expect(new ConflictError('Conflict')).toBeInstanceOf(ConflictError);
+      expect(new ImATeapotError('I do not brew coffee')).toBeInstanceOf(ImATeapotError);
     });
 
     test('it should return expected POJO/JSON information', () => {
-      expect(new ConflictError('Conflict').toPojo()).toStrictEqual({
+      expect(new ImATeapotError('I do not brew coffee').toPojo()).toStrictEqual({
         error: {
-          message: 'Conflict',
+          message: 'I do not brew coffee',
           requestId: '',
-          code: 409,
+          code: 418,
           details: '',
         },
       });
@@ -44,17 +44,17 @@ describe('Tests ConflictError response error class', () => {
   describe('Instantiation with a plain object as a config', () => {
     test('it should return expected POJO/JSON information', () => {
       const config = {
-        code: 409,
-        message: 'Oooops, conflict!',
+        code: 418,
+        message: 'Oooops, no coffee today!',
         requestId: requestId(),
-        details: 'Version control conflict',
+        details: 'I do not brew coffee because I am a teapot',
       };
       const expected = {
         error: config,
       };
-      const error = new ConflictError(config);
+      const error = new ImATeapotError(config);
 
-      expect(error).toBeInstanceOf(ConflictError);
+      expect(error).toBeInstanceOf(ImATeapotError);
       expect(error.toPojo()).toStrictEqual(expected);
       expect(error.toJSON()).toStrictEqual(expected);
     });
@@ -63,8 +63,8 @@ describe('Tests ConflictError response error class', () => {
   describe('Instantiation with the ResponseErrorOptions instance', () => {
     test('it should return expected POJO/JSON information', () => {
       const config = {
-        code: 409,
-        message: 'Oooops, conflict!',
+        code: 418,
+        message: 'Oooops, no coffee today!',
         requestId: requestId(),
         details: '',
       };
@@ -72,9 +72,9 @@ describe('Tests ConflictError response error class', () => {
         error: config,
       };
 
-      const error = new ConflictError(new ResponseErrorOptions(config));
+      const error = new ImATeapotError(new ResponseErrorOptions(config));
 
-      expect(error).toBeInstanceOf(ConflictError);
+      expect(error).toBeInstanceOf(ImATeapotError);
       expect(error.toPojo()).toStrictEqual(expected);
       expect(error.toJSON()).toStrictEqual(expected);
     });
