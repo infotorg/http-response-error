@@ -23,7 +23,7 @@ console.log(error.toJSON());
 //   error: {
 //     code: 404,
 //     requestId: '',
-//     message: 'Internal Server Error',
+//     message: 'Not Found',
 //     details: ''
 //   }
 // }
