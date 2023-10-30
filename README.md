@@ -27,6 +27,15 @@ console.log(error.toJSON());
 //     details: ''
 //   }
 // }
+
+console.log(error.status);
+// 404 Not Found
+
+console.log(error.code);
+// 404
+
+console.log(error.message);
+// Not Found
 ```
 
 ```javascript
@@ -51,13 +60,16 @@ console.log(error.toJSON());
 // }
 
 console.log(error.status);
-// 404 Not Found
+// 404 Noting Found
 
 console.log(error.code);
 // 404
 
 console.log(error.message);
-// Not Found
+// Nothing found
+
+console.log(error.details);
+// Some details about error
 ```
 
 ```javascript
@@ -103,7 +115,7 @@ console.log(error.toJSON());
 // }
 
 console.log(error.status);
-// 429 Too Many Requests
+// 429 Rate limit exceeded
 
 console.log(error.code);
 // 429
@@ -134,7 +146,7 @@ console.log(error.toJSON());
 // }
 
 console.log(error.status);
-// 429 Too Many Requests
+// 429 Rate limit exceeded
 
 console.log(error.code);
 // 429

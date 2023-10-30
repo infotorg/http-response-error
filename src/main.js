@@ -8,6 +8,8 @@
 
 // Status codes
 export { default as statusCodes } from './status-codes.js';
+// Reason phrases
+export { default as reasonPhrases } from './reason-phrases.js';
 
 // Base class for all errors
 export { default as ResponseError } from './response-error';
